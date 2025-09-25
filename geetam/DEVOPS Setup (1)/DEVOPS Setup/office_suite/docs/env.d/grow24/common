@@ -1,0 +1,221 @@
+# # Django
+# DJANGO_ALLOWED_HOSTS=docs.intelligentsalesman.com,localhost,127.0.0.1,118.139.165.145
+# DJANGO_SECRET_KEY=YourVerySecureSecretKeyHereChange123456789
+# DJANGO_SETTINGS_MODULE=impress.settings
+# DJANGO_SUPERUSER_PASSWORD=your-secure-admin-password
+# DJANGO_DEBUG=False
+
+# # Database - Using your existing PostgreSQL
+# DATABASE_URL=postgres://grow24_user:grow24_pass@118.139.165.145:25432/office_suite_docs_db
+
+# DB_HOST=118.139.165.145
+# DB_PORT=25432
+# DB_NAME=office_suite_docs_db
+# DB_USER=grow24_user
+# DB_PASSWORD=grow24_pass
+
+# # Redis - Using your existing Redis
+# REDIS_URL=redis://:grow24_pass@118.139.165.145:26379/0
+
+# # Logging
+# LOGGING_LEVEL_HANDLERS_CONSOLE=INFO
+# LOGGING_LEVEL_LOGGERS_ROOT=INFO
+# LOGGING_LEVEL_LOGGERS_APP=INFO
+
+# # Python
+# PYTHONPATH=/app
+
+# # Mail Settings (Update for production)
+# DJANGO_EMAIL_BRAND_NAME="La Suite Numérique"
+# DJANGO_EMAIL_HOST="smtp.gmail.com"
+# DJANGO_EMAIL_PORT=587
+# DJANGO_EMAIL_USE_TLS=True
+# DJANGO_EMAIL_HOST_USER="gb369rtl@gmail.com"
+# DJANGO_EMAIL_HOST_PASSWORD="jgccgkguqhxufury"
+# DJANGO_EMAIL_LOGO_IMG="https://docs.intelligentsalesman.com/assets/logo-suite-numerique.png"
+# DJANGO_DEFAULT_FROM_EMAIL="La Suite Numérique <noreply@intelligentsalesman.com>"
+
+# # Backend URL
+# IMPRESS_BASE_URL="https://docs.intelligentsalesman.com"
+
+# # Media Storage (MinIO)
+# STORAGES_DEFAULT_BACKEND=impress.core.storages.MediaStorage
+# AWS_S3_ENDPOINT_URL=http://minio:9000
+# AWS_S3_ACCESS_KEY_ID=grow24_office_docs
+# AWS_S3_SECRET_ACCESS_KEY=your-secure-minio-password
+# AWS_STORAGE_BUCKET_NAME=grow24-office-docs-media-storage
+# AWS_S3_USE_SSL=False
+# AWS_S3_CUSTOM_DOMAIN=docs.intelligentsalesman.com:20080/media
+# MEDIA_BASE_URL=https://docs.intelligentsalesman.com/media
+
+# # OIDC - Using your existing Keycloak
+# OIDC_OP_JWKS_ENDPOINT=https://keycloak.intelligentsalesman.com/realms/grow24/protocol/openid-connect/certs
+# OIDC_OP_AUTHORIZATION_ENDPOINT=https://keycloak.intelligentsalesman.com/realms/grow24/protocol/openid-connect/auth
+# OIDC_OP_TOKEN_ENDPOINT=https://keycloak.intelligentsalesman.com/realms/grow24/protocol/openid-connect/token
+# OIDC_OP_USER_ENDPOINT=https://keycloak.intelligentsalesman.com/realms/grow24/protocol/openid-connect/userinfo
+
+# OIDC_RP_CLIENT_ID=office_docs
+# OIDC_RP_CLIENT_SECRET=ZjPs24NaZXaczX7pW1fw6xXO9HKcioGz
+# OIDC_RP_SIGN_ALGO=RS256
+# OIDC_RP_SCOPES="openid email profile"
+
+# LOGIN_REDIRECT_URL=https://docs.intelligentsalesman.com
+# LOGIN_REDIRECT_URL_FAILURE=https://docs.intelligentsalesman.com/login-error
+# LOGOUT_REDIRECT_URL=https://docs.intelligentsalesman.com
+
+# # OIDC_REDIRECT_ALLOWED_HOSTS=["https://keycloak.intelligentsalesman.com", "https://docs.intelligentsalesman.com"]
+# OIDC_REDIRECT_ALLOWED_HOSTS=["https://docs.intelligentsalesman.com"]
+# # OIDC_AUTH_REQUEST_EXTRA_PARAMS={"acr_values": "eidas1"}
+
+# # # AI (Update if you have AI services)
+# # AI_FEATURE_ENABLED=true
+# # AI_BASE_URL=https://your-ai-endpoint.com
+# # AI_API_KEY=your-ai-api-key
+# # AI_MODEL=gpt-3.5-turbo
+
+# # Collaboration
+# COLLABORATION_API_URL=http://y-provider-production:4444/collaboration/api/
+# COLLABORATION_BACKEND_BASE_URL=http://app-prod:8000
+# COLLABORATION_SERVER_ORIGIN=https://docs.intelligentsalesman.com
+# COLLABORATION_SERVER_SECRET=your-very-secure-collaboration-secret
+# COLLABORATION_WS_URL=wss://docs.intelligentsalesman.com/collaboration/ws/
+
+# Y_PROVIDER_API_BASE_URL=http://y-provider-production:4444/api/
+# Y_PROVIDER_API_KEY=your-secure-yprovider-api-key
+
+# # Security Headers
+# SECURE_SSL_REDIRECT=False
+# SECURE_HSTS_SECONDS=31536000
+# SECURE_HSTS_INCLUDE_SUBDOMAINS=True
+# SECURE_HSTS_PRELOAD=True
+# SECURE_CONTENT_TYPE_NOSNIFF=True
+# SECURE_BROWSER_XSS_FILTER=True
+# X_FRAME_OPTIONS=DENY
+
+# # Session Security
+# SESSION_COOKIE_SECURE=True
+# SESSION_COOKIE_HTTPONLY=True
+# SESSION_COOKIE_SAMESITE=Lax
+# CSRF_COOKIE_SECURE=True
+# CSRF_COOKIE_HTTPONLY=True
+# CSRF_COOKIE_SAMESITE=Lax
+
+
+
+
+
+
+
+
+
+# Django
+# DJANGO_ALLOWED_HOSTS=docs.intelligentsalesman.com,localhost,127.0.0.1,118.139.165.145
+DJANGO_ALLOWED_HOSTS=*
+DJANGO_SECRET_KEY=YourVerySecureSecretKeyHereChange123456789
+DJANGO_SETTINGS_MODULE=impress.settings
+# DJANGO_SUPERUSER_PASSWORD=your-secure-admin-password
+DJANGO_SUPERUSER_PASSWORD=admin
+DJANGO_DEBUG=False
+
+# Database - Using your existing PostgreSQL
+DATABASE_URL=postgres://grow24_user:grow24_pass@118.139.165.145:25432/office_suite_docs_db
+
+DB_HOST=118.139.165.145
+DB_PORT=25432
+DB_NAME=office_suite_docs_db
+DB_USER=grow24_user
+DB_PASSWORD=grow24_pass
+
+# Redis - Using your existing Redis
+REDIS_URL=redis://:grow24_pass@118.139.165.145:26379/0
+
+# Backend URL - CRITICAL: Must be HTTPS
+IMPRESS_BASE_URL=https://docs.intelligentsalesman.com
+
+# Media Storage (MinIO) - FIXED URLs
+STORAGES_DEFAULT_BACKEND=impress.core.storages.MediaStorage
+AWS_S3_ENDPOINT_URL=http://minio:9000
+AWS_S3_ACCESS_KEY_ID=grow24_office_docs
+AWS_S3_SECRET_ACCESS_KEY=your-secure-minio-password
+AWS_STORAGE_BUCKET_NAME=grow24-office-docs-media-storage
+AWS_S3_USE_SSL=False
+AWS_S3_CUSTOM_DOMAIN=docs.intelligentsalesman.com
+MEDIA_BASE_URL=https://docs.intelligentsalesman.com/media
+
+# OIDC - Using your existing Keycloak
+OIDC_OP_JWKS_ENDPOINT=https://keycloak.intelligentsalesman.com/realms/grow24/protocol/openid-connect/certs
+OIDC_OP_AUTHORIZATION_ENDPOINT=https://keycloak.intelligentsalesman.com/realms/grow24/protocol/openid-connect/auth
+OIDC_OP_TOKEN_ENDPOINT=https://keycloak.intelligentsalesman.com/realms/grow24/protocol/openid-connect/token
+OIDC_OP_USER_ENDPOINT=https://keycloak.intelligentsalesman.com/realms/grow24/protocol/openid-connect/userinfo
+OIDC_OP_LOGOUT_ENDPOINT=https://keycloak.intelligentsalesman.com/realms/grow24/protocol/openid-connect/logout
+
+OIDC_RP_CLIENT_ID=office_docs
+OIDC_RP_CLIENT_SECRET=ZjPs24NaZXaczX7pW1fw6xXO9HKcioGz
+OIDC_RP_SIGN_ALGO=RS256
+OIDC_RP_SCOPES="openid email profile"
+
+LOGIN_REDIRECT_URL=https://docs.intelligentsalesman.com
+LOGIN_REDIRECT_URL_FAILURE=https://docs.intelligentsalesman.com/login-error
+LOGOUT_REDIRECT_URL=https://docs.intelligentsalesman.com
+
+OIDC_REDIRECT_ALLOWED_HOSTS=["http://localhost:20001", "http://localhost:20002", "http://localhost:20004", "http://keycloak.intelligentsalesman.com", "https://docs.intelligentsalesman.com"]
+OIDC_AUTH_REQUEST_EXTRA_PARAMS={"acr_values": "eidas1"}
+
+# Collaboration - FIXED URLs
+COLLABORATION_API_URL=http://y-provider-production:4444/collaboration/api/
+COLLABORATION_BACKEND_BASE_URL=http://app-prod:8000/
+COLLABORATION_SERVER_ORIGIN=https://docs.intelligentsalesman.com
+# COLLABORATION_SERVER_SECRET=your-very-secure-collaboration-secret
+COLLABORATION_SERVER_SECRET=7b9e8d1a2c0f3e5d7b9e2f1a4c6d8e0f3a5b7c9d1e2
+COLLABORATION_WS_URL=wss://docs.intelligentsalesman.com/collaboration/ws/
+
+Y_PROVIDER_API_BASE_URL=http://y-provider-production:4444/api/
+# Y_PROVIDER_API_KEY=your-secure-yprovider-api-key
+Y_PROVIDER_API_KEY=5a8f2c3e9b0d7e1f4a6c8b9d2e0f1a3c5e7d9f2b6a8c1e3d7f9a0
+
+
+Y_PROVIDER_BACKEND_URL=http://app-prod:8000
+Y_PROVIDER_BACKEND_AUTH_HEADER=Bearer your-backend-api-token
+MINIO_BROWSER_REDIRECT_URL=https://docs.intelligentsalesman.com/media
+
+# Security Headers
+SECURE_SSL_REDIRECT=True
+SECURE_HSTS_SECONDS=31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS=True
+SECURE_HSTS_PRELOAD=True
+SECURE_CONTENT_TYPE_NOSNIFF=True
+SECURE_BROWSER_XSS_FILTER=True
+X_FRAME_OPTIONS=DENY
+
+# Session Security
+SESSION_COOKIE_SECURE=True
+SESSION_COOKIE_HTTPONLY=True
+SESSION_COOKIE_SAMESITE=Lax
+CSRF_COOKIE_SECURE=True
+CSRF_COOKIE_HTTPONLY=True
+CSRF_COOKIE_SAMESITE=Lax
+
+# Mail Settings
+DJANGO_EMAIL_BRAND_NAME="La Suite Numérique"
+DJANGO_EMAIL_HOST="smtp.gmail.com"
+DJANGO_EMAIL_PORT=587
+DJANGO_EMAIL_USE_TLS=True
+DJANGO_EMAIL_HOST_USER="gb369rtl@gmail.com"
+DJANGO_EMAIL_HOST_PASSWORD="jgccgkguqhxufury"
+DJANGO_EMAIL_LOGO_IMG="https://docs.intelligentsalesman.com/assets/logo-suite-numerique.png"
+DJANGO_DEFAULT_FROM_EMAIL="La Suite Numérique <noreply@intelligentsalesman.com>"
+
+# Logging
+LOGGING_LEVEL_HANDLERS_CONSOLE=INFO
+LOGGING_LEVEL_LOGGERS_ROOT=INFO
+LOGGING_LEVEL_LOGGERS_APP=INFO
+
+# Session settings for collaboration
+SESSION_COOKIE_AGE=86400
+SESSION_SAVE_EVERY_REQUEST=True
+
+STATIC_URL=/static/
+STATIC_ROOT=/data/static
+MEDIA_URL=/media/
+
+PYTHONPATH=/app
