@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.react-flow__attribution {
+  display: none;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+/* Softer locked line background */
+.locked-line-background {
+  background-color: rgba(255, 0, 0, 0.05) !important;
+}
+
+/* Remove glyph margin icon */
+.locked-line-glyph {
+  background: none !important;
+}
+
+/* Editor container tweaks */
+.monaco-editor, .monaco-editor-background, .monaco-editor .margin, .monaco-editor .lines-content {
+  border-radius: 8px !important;
+  font-family: 'Fira Code', monospace !important;
+  font-size: 14px !important;
+}
+
+/* Add subtle shadow */
+.monaco-editor {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Scrollbar styling for better UX */
+.monaco-scrollable-element > .scrollbar > .slider {
+  background: rgba(0,0,0,0.1) !important;
+  border-radius: 4px !important;
+}
