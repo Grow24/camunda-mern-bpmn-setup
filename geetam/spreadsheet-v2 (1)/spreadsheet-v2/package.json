@@ -1,0 +1,70 @@
+{
+  "name": "grid",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "@formulajs/formulajs": "^4.5.3",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "chart.js": "^4.5.0",
+    "chartjs-plugin-datalabels": "^2.2.0",
+    "echarts": "^5.6.0",
+    "echarts-for-react": "^3.0.2",
+    "echarts-react": "^0.0.1-beta",
+    "html2canvas": "^1.4.1",
+    "konva": "^9.3.6",
+    "lucide-react": "^0.525.0",
+    "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-chartjs-2": "^5.3.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
+    "react-dom": "^18.2.0",
+    "react-draggable": "^4.5.0",
+    "react-konva": "^18.2.10",
+    "react-konva-utils": "^1.1.1",
+    "react-resize-detector": "^6.7.0",
+    "react-scripts": "5.0.1",
+    "react-virtualized": "^9.22.6",
+    "react-window": "^1.8.11",
+    "recharts": "^3.1.0",
+    "socket.io-client": "^4.8.1",
+    "web-vitals": "^2.1.4",
+    "y-websocket": "^3.0.0",
+    "yjs": "^13.6.27"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "overrides": {
+    "react": "$react",
+    "react-dom": "$react-dom",
+    "react-resize-detector": "^6.7.0"
+  }
+}
