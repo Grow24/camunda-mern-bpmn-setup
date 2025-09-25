@@ -1,0 +1,281 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                     String   @id @default(cuid())
+  email                  String   @unique
+  name                   String
+  avatar                 String?
+  role                   Role     @default(MEMBER)
+  notificationPreferences Json    @default("{}")
+  timezone    String   @default("UTC")
+  isActive    Boolean  @default(true)
+  lastLoginAt DateTime @default(now())
+  lastSeenAt  DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relationships
+  ownedSpreadsheets      Spreadsheet[]         @relation("OwnedSpreadsheets")
+  ownedFolders           Folder[]              @relation("OwnedFolders")
+  ownedGroups            Group[]               @relation("OwnedGroups")
+  spreadsheetPermissions SpreadsheetPermission[]
+  folderPermissions      FolderPermission[]    @relation("FolderPermissions")
+  groupMemberships       GroupMember[]
+  sharedByMe             Share[]               @relation("SharedBy")
+  sharedWithMe           Share[]               @relation("SharedWith")
+  notifications          Notification[]
+  recentActivities       RecentActivity[]
+  activities             Activity[]
+  sessions               UserSession[]
+
+  @@map("users")
+}
+
+model Folder {
+  id          String   @id @default(cuid())
+  name        String
+  parentId    String?
+  ownerId     String
+  isStarred   Boolean  @default(false)
+  isDeleted   Boolean  @default(false)
+  deletedAt   DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relationships
+  parent       Folder?       @relation("FolderHierarchy", fields: [parentId], references: [id])
+  children     Folder[]      @relation("FolderHierarchy")
+  owner        User          @relation("OwnedFolders", fields: [ownerId], references: [id])
+  spreadsheets Spreadsheet[]
+  permissions  FolderPermission[]
+  shares       Share[]       @relation("FolderShares")
+  recentActivities RecentActivity[] @relation("FolderToRecentActivity")
+
+  @@map("folders")
+}
+
+model Spreadsheet {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  version     Int      @default(1)
+  content     Json     @default("{}")
+  folderId    String?
+  ownerId     String
+  isStarred   Boolean  @default(false)
+  isDeleted   Boolean  @default(false)
+  deletedAt   DateTime?
+  lastAccessedAt DateTime @default(now())
+  isPublic    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relationships
+  folder      Folder?   @relation(fields: [folderId], references: [id])
+  owner       User      @relation("OwnedSpreadsheets", fields: [ownerId], references: [id])
+  permissions SpreadsheetPermission[]
+  shares      Share[]   @relation("SpreadsheetShares")
+  activities  Activity[]
+  // shareLinks  ShareLink[]
+  recentActivities RecentActivity[] @relation("SpreadsheetToRecentActivity")
+
+  @@map("spreadsheets")
+}
+
+model SpreadsheetPermission {
+  id            String     @id @default(cuid())
+  spreadsheetId String
+  userId        String?
+  groupId       String?
+  permission    Permission
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  // Relationships
+  spreadsheet Spreadsheet @relation(fields: [spreadsheetId], references: [id], onDelete: Cascade)
+  user        User?       @relation(fields: [userId], references: [id])
+  group       Group?      @relation(fields: [groupId], references: [id])
+
+  @@unique([spreadsheetId, userId])
+  @@unique([spreadsheetId, groupId])
+  @@map("spreadsheet_permissions")
+}
+
+model FolderPermission {
+  id         String     @id @default(cuid())
+  folderId   String
+  userId     String?
+  groupId    String?
+  permission Permission
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  // Relationships
+  folder Folder @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  user   User?  @relation("FolderPermissions", fields: [userId], references: [id])
+  group  Group? @relation(fields: [groupId], references: [id])
+
+  @@unique([folderId, userId])
+  @@unique([folderId, groupId])
+  @@map("folder_permissions")
+}
+
+model Share {
+  id             String      @id @default(cuid())
+  token          String      @unique
+  spreadsheetId  String?
+  folderId       String?
+  sharedById     String
+  sharedWithId   String?
+  email          String?
+  permission     Permission
+  status         ShareStatus @default(PENDING)
+  message        String?
+  expiresAt      DateTime?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  // Relationships
+  spreadsheet Spreadsheet? @relation("SpreadsheetShares", fields: [spreadsheetId], references: [id])
+  folder      Folder?      @relation("FolderShares", fields: [folderId], references: [id])
+  sharedBy    User         @relation("SharedBy", fields: [sharedById], references: [id])
+  sharedWith  User?        @relation("SharedWith", fields: [sharedWithId], references: [id])
+
+  @@map("shares")
+}
+
+model Group {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  ownerId     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relationships
+  owner               User               @relation("OwnedGroups", fields: [ownerId], references: [id])
+  members             GroupMember[]
+  spreadsheetPermissions SpreadsheetPermission[]
+  folderPermissions   FolderPermission[]
+
+  @@map("groups")
+}
+
+model GroupMember {
+  id      String @id @default(cuid())
+  groupId String
+  userId  String
+  role    GroupRole @default(MEMBER)
+  createdAt DateTime @default(now())
+
+  // Relationships
+  group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, userId])
+  @@map("group_members")
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  type      NotificationType
+  title     String
+  message   String
+  data      Json?
+  isRead    Boolean          @default(false)
+  createdAt DateTime         @default(now())
+
+  // Relationships
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+model RecentActivity {
+  id            String   @id @default(cuid())
+  userId        String
+  spreadsheetId String?
+  folderId      String?
+  action        String
+  createdAt     DateTime @default(now())
+
+  // Relationships
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  folder      Folder?      @relation("FolderToRecentActivity", fields: [folderId], references: [id])
+  spreadsheet Spreadsheet? @relation("SpreadsheetToRecentActivity", fields: [spreadsheetId], references: [id])
+
+  @@map("recent_activities")
+}
+
+model Activity {
+  id            String      @id @default(cuid())
+  userId        String
+  spreadsheetId String
+  action        String
+  details       Json?
+  ipAddress     String?
+  userAgent     String?
+  createdAt     DateTime    @default(now())
+
+  // Relationships
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  spreadsheet Spreadsheet @relation(fields: [spreadsheetId], references: [id], onDelete: Cascade)
+  
+  @@map("activities")
+}
+
+model UserSession {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  // Relationships
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("user_sessions")
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+  VIEWER
+}
+
+enum Permission {
+  VIEW
+  COMMENT
+  EDIT
+  ADMIN
+  OWNER
+}
+
+enum ShareStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  EXPIRED
+}
+
+enum NotificationType {
+  SHARE_INVITATION
+  SHARE_ACCEPTED
+  SHARE_REJECTED
+  MENTION
+  COMMENT
+  ACTIVITY
+}
+
+enum GroupRole {
+  ADMIN
+  MEMBER
+}
